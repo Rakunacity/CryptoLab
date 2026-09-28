@@ -6,6 +6,8 @@ import java.util.List;
 
 import com.cryptolab.model.CryptoAsset;
 import com.cryptolab.model.Market;
+import com.cryptolab.model.Portfolio;
+import com.cryptolab.service.TradingService;
 
 public class Main {
 
@@ -30,8 +32,13 @@ public class Main {
         bitcoin.changePrice(new BigDecimal("67500.00"));
 
         System.out.println("-----------------------------");
-
         market.printAll();
+        System.out.println("-----------------------------");
+        Portfolio portfolio = new Portfolio();
+        TradingService.buy("BTC", new BigDecimal("0.01"), market, portfolio);
+
+        System.out.println(portfolio.getCashBalance());
+        System.out.println(portfolio.getCryptoAmount("BTC"));
 
     }
 }
