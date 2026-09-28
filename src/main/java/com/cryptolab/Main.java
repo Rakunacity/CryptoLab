@@ -11,8 +11,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-        List<CryptoAsset> assetList = new ArrayList<>();
-
         CryptoAsset bitcoin = new CryptoAsset("BTC", "Bitcoin", new BigDecimal("65000.25"));
         CryptoAsset ethereum = new CryptoAsset("ETH", "Ethereum", new BigDecimal("3500.00"));
         CryptoAsset solana = new CryptoAsset("SOL", "Solana", new BigDecimal("150.00"));
@@ -33,9 +31,7 @@ public class Main {
 
         System.out.println("-----------------------------");
 
-        for (CryptoAsset asset : assetList) {
-            System.out.println(asset);
-        }
+        market.printAll();
 
     }
 }
