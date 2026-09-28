@@ -1,8 +1,9 @@
 package com.cryptolab.model;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Market {
-    private HashMap<String, CryptoAsset> market = new HashMap<>();
+    private Map<String, CryptoAsset> market = new HashMap<>();
 
     public void addAsset(CryptoAsset asset) {
         this.market.put(asset.getSymbol().toUpperCase(), asset);
