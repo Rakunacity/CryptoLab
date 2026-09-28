@@ -2,28 +2,29 @@ package com.cryptolab;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.cryptolab.model.CryptoAsset;
+import com.cryptolab.model.Market;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<CryptoAsset> assetList = new ArrayList<>();
+        List<CryptoAsset> assetList = new ArrayList<>();
 
         CryptoAsset bitcoin = new CryptoAsset("BTC", "Bitcoin", new BigDecimal("65000.25"));
         CryptoAsset ethereum = new CryptoAsset("ETH", "Ethereum", new BigDecimal("3500.00"));
         CryptoAsset solana = new CryptoAsset("SOL", "Solana", new BigDecimal("150.00"));
 
-        assetList.add(bitcoin);
-        assetList.add(ethereum);
-        assetList.add(solana);
+        Market market = new Market();
+        market.addAsset(bitcoin);
+        market.addAsset(ethereum);
+        market.addAsset(solana);
 
-        for (CryptoAsset asset : assetList) {
-            System.out.println(asset);
-        }
+        market.printAll();
 
-        CryptoAsset match = assetList.stream().filter(item -> "ETH".equals(item.getSymbol())).findFirst().orElse(null);
+        CryptoAsset match = market.getAsset("BTC");
         System.out.println("AAaaaAA");
         System.out.println(match);
         System.out.println("AAaaaAA");
