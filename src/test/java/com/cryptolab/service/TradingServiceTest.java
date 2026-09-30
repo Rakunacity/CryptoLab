@@ -84,7 +84,7 @@ class TradingServiceTest {
         assertEquals(0, new BigDecimal("0.5").compareTo(portfolio.getCryptoAmount("BTC")));
     }
 
-        @Test
+    @Test
     void rejectsSellOfUnknownAssetWithoutChangingPortfolio() {
         Portfolio portfolio = new Portfolio();
 
@@ -95,7 +95,7 @@ class TradingServiceTest {
         assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getCryptoAmount("DOGE")));
     }
 
-        @Test
+    @Test
     void rejectsSellThatExceedsAvailableCryptoAmount() {
         Portfolio portfolio = new Portfolio();
 

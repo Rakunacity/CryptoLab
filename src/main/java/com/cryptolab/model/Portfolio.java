@@ -35,4 +35,8 @@ public class Portfolio {
         this.cash = this.cash.subtract(amount);
     }
 
+    public Map<String, BigDecimal> getAllCryptos() {
+        return Map.copyOf(this.cryptoMap); 
+    }
+
 }
