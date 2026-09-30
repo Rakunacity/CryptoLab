@@ -35,7 +35,7 @@ public class Main {
         market.printAll();
         System.out.println("-----------------------------");
         Portfolio portfolio = new Portfolio();
-        TradingService.buy("BTC", new BigDecimal("0.01"), market, portfolio);
+        TradingService.buy("BTC", new BigDecimal("1"), market, portfolio);
 
         System.out.println(portfolio.getCashBalance());
         System.out.println(portfolio.getCryptoAmount("BTC"));

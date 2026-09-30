@@ -8,7 +8,10 @@ import com.cryptolab.model.Portfolio;
 
 public class TradingService {
 
-    public static boolean buy(String symbol, BigDecimal amount, Market market, Portfolio porfolio) {
+    public static boolean buy(String symbol, BigDecimal amount, Market market, Portfolio portfolio) {
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            return false;
+        }
 
         CryptoAsset asset = market.getAsset(symbol);
         if (asset == null) {
@@ -16,12 +19,12 @@ public class TradingService {
         }
 
         BigDecimal buyCost = asset.getPrice().multiply(amount);
-        if (buyCost.compareTo( porfolio.getCashBalance()) >= 0 ) {
+        if (buyCost.compareTo(portfolio.getCashBalance()) > 0 ) {
             return false;
         }
 
-        porfolio.addCrypto(symbol, amount);
-        porfolio.updateCashBalance(buyCost.negate());
+        portfolio.addCrypto(symbol, amount);
+        portfolio.updateCashBalance(buyCost.negate());
 
         return true;
     }
