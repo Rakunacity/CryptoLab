@@ -27,8 +27,12 @@ public class Portfolio {
         return this.cash;
     }
 
-    public void updateCashBalance(BigDecimal signedAmount) {
-        this.cash = this.cash.add(signedAmount);
+    public void addCash(BigDecimal amount) {
+        this.cash = this.cash.add(amount);
+    }
+
+    public void deductCash(BigDecimal amount) {
+        this.cash = this.cash.subtract(amount);
     }
 
 }

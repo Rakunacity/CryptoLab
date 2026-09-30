@@ -76,12 +76,12 @@ class TradingServiceTest {
         Market market = marketWithAsset("BTC", "5000.00");
         Portfolio portfolio = new Portfolio();
 
-        TradingService.buy("BTC", new BigDecimal("2"), market, portfolio);
+        TradingService.buy("BTC", new BigDecimal("1.5"), market, portfolio);
         boolean sold = TradingService.sell("BTC", new BigDecimal("1"), market, portfolio);
 
         assertTrue(sold);
-        assertEquals(0, new BigDecimal("5000.00").compareTo(portfolio.getCashBalance()));
-        assertEquals(0, new BigDecimal("1").compareTo(portfolio.getCryptoAmount("BTC")));
+        assertEquals(0, new BigDecimal("7500.00").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, new BigDecimal("0.5").compareTo(portfolio.getCryptoAmount("BTC")));
     }
 
         @Test

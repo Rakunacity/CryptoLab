@@ -24,7 +24,7 @@ public class TradingService {
         }
 
         portfolio.addCrypto(symbol, amount);
-        portfolio.updateCashBalance(buyCost.negate());
+        portfolio.deductCash(buyCost);
 
         return true;
     }
@@ -44,7 +44,7 @@ public class TradingService {
         }
 
         BigDecimal sellResult = asset.getPrice().multiply(amount);
-        portfolio.updateCashBalance(portfolio.getCashBalance().add(sellResult));
+        portfolio.addCash(sellResult);
         portfolio.deductCrypto(symbol, amount);
 
         return true;
