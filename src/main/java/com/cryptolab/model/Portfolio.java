@@ -15,17 +15,20 @@ public class Portfolio {
         this.cryptoMap.put(symbol.toUpperCase(), amount.add(prevAmount));
     }
 
-    public BigDecimal getCryptoAmount (String symbol) {
+    public void deductCrypto(String symbol, BigDecimal amount) {
+        this.addCrypto(symbol, amount.negate());
+    }
+
+    public BigDecimal getCryptoAmount(String symbol) {
         return cryptoMap.getOrDefault(symbol.toUpperCase(), BigDecimal.ZERO);
     }
 
-    public BigDecimal getCashBalance () {
+    public BigDecimal getCashBalance() {
         return this.cash;
     }
 
-    public void updateCashBalance (BigDecimal signedAmount) {
+    public void updateCashBalance(BigDecimal signedAmount) {
         this.cash = this.cash.add(signedAmount);
     }
-
 
 }

@@ -26,7 +26,7 @@ class TradingServiceTest {
     }
 
     @Test
-    void rejectsUnknownAssetWithoutChangingPortfolio() {
+    void rejectsBuyOfUnknownAssetWithoutChangingPortfolio() {
         Portfolio portfolio = new Portfolio();
 
         boolean purchased = TradingService.buy("DOGE", BigDecimal.ONE, marketWithAsset("BTC", "100"), portfolio);
@@ -37,7 +37,7 @@ class TradingServiceTest {
     }
 
     @Test
-    void rejectsPurchaseThatExceedsAvailableCash() {
+    void rejectsBuyThatExceedsAvailableCash() {
         Portfolio portfolio = new Portfolio();
 
         boolean purchased = TradingService.buy("BTC", new BigDecimal("2"), marketWithAsset("BTC", "6000"), portfolio);
@@ -48,7 +48,7 @@ class TradingServiceTest {
     }
 
     @Test
-    void allowsPurchaseThatUsesEntireCashBalance() {
+    void allowsBuyThatUsesEntireCashBalance() {
         Portfolio portfolio = new Portfolio();
 
         boolean purchased = TradingService.buy("BTC", BigDecimal.ONE, marketWithAsset("BTC", "10000"), portfolio);
@@ -59,7 +59,7 @@ class TradingServiceTest {
     }
 
     @Test
-    void rejectsZeroOrNegativeAmountWithoutChangingPortfolio() {
+    void rejectsBuyOfZeroOrNegativeAmountWithoutChangingPortfolio() {
         Market market = marketWithAsset("BTC", "100");
         Portfolio portfolio = new Portfolio();
 
@@ -68,6 +68,71 @@ class TradingServiceTest {
 
         assertEquals(0, new BigDecimal("10000").compareTo(portfolio.getCashBalance()));
         assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getCryptoAmount("BTC")));
+    }
+
+
+    @Test
+    void sellsKnownCryptoAssetAndUpdatesPortfolio() {
+        Market market = marketWithAsset("BTC", "5000.00");
+        Portfolio portfolio = new Portfolio();
+
+        TradingService.buy("BTC", new BigDecimal("2"), market, portfolio);
+        boolean sold = TradingService.sell("BTC", new BigDecimal("1"), market, portfolio);
+
+        assertTrue(sold);
+        assertEquals(0, new BigDecimal("5000.00").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, new BigDecimal("1").compareTo(portfolio.getCryptoAmount("BTC")));
+    }
+
+        @Test
+    void rejectsSellOfUnknownAssetWithoutChangingPortfolio() {
+        Portfolio portfolio = new Portfolio();
+
+        boolean sold = TradingService.sell("DOGE", BigDecimal.ONE, marketWithAsset("BTC", "100"), portfolio);
+
+        assertFalse(sold);
+        assertEquals(0, new BigDecimal("10000").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getCryptoAmount("DOGE")));
+    }
+
+        @Test
+    void rejectsSellThatExceedsAvailableCryptoAmount() {
+        Portfolio portfolio = new Portfolio();
+
+        Market market = marketWithAsset("BTC", "5000");
+
+        TradingService.buy("BTC", new BigDecimal("2"), market, portfolio);
+        boolean sold = TradingService.sell("BTC", new BigDecimal("3"), market, portfolio);
+        assertFalse(sold);
+
+        assertEquals(0, new BigDecimal("0").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, new BigDecimal("2").compareTo(portfolio.getCryptoAmount("BTC")));
+    }
+
+    @Test
+    void allowsSellThatUsesEntireCryptoBalance() {
+        Market market = marketWithAsset("BTC", "5000");
+        Portfolio portfolio = new Portfolio();
+        TradingService.buy("BTC", new BigDecimal("2"), market, portfolio);
+
+        boolean sold = TradingService.sell("BTC", new BigDecimal("2"), market, portfolio);
+
+        assertTrue(sold);
+        assertEquals(0, new BigDecimal("10000").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getCryptoAmount("BTC")));
+    }
+
+    @Test
+    void rejectsSellOfZeroOrNegativeAmountWithoutChangingPortfolio() {
+        Market market = marketWithAsset("BTC", "5000");
+        Portfolio portfolio = new Portfolio();
+        TradingService.buy("BTC", BigDecimal.ONE, market, portfolio);
+
+        assertFalse(TradingService.sell("BTC", BigDecimal.ZERO, market, portfolio));
+        assertFalse(TradingService.sell("BTC", new BigDecimal("-1"), market, portfolio));
+
+        assertEquals(0, new BigDecimal("5000").compareTo(portfolio.getCashBalance()));
+        assertEquals(0, BigDecimal.ONE.compareTo(portfolio.getCryptoAmount("BTC")));
     }
 
     private Market marketWithAsset(String symbol, String price) {

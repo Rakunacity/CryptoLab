@@ -1,13 +1,9 @@
 package com.cryptolab;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.cryptolab.model.CryptoAsset;
 import com.cryptolab.model.Market;
-import com.cryptolab.model.Portfolio;
-import com.cryptolab.service.TradingService;
 
 public class Main {
 
@@ -23,22 +19,6 @@ public class Main {
         market.addAsset(solana);
 
         market.printAll();
-
-        CryptoAsset match = market.getAsset("BTC");
-        System.out.println("AAaaaAA");
-        System.out.println(match);
-        System.out.println("AAaaaAA");
-
-        bitcoin.changePrice(new BigDecimal("67500.00"));
-
-        System.out.println("-----------------------------");
-        market.printAll();
-        System.out.println("-----------------------------");
-        Portfolio portfolio = new Portfolio();
-        TradingService.buy("BTC", new BigDecimal("1"), market, portfolio);
-
-        System.out.println(portfolio.getCashBalance());
-        System.out.println(portfolio.getCryptoAmount("BTC"));
 
     }
 }
