@@ -4,9 +4,11 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.cryptolab.Utils.bd;
+
 public class Portfolio {
 
-    private BigDecimal cash = new BigDecimal("10000");
+    private BigDecimal cash = bd("10000");
 
     private Map<String, BigDecimal> cryptoMap = new HashMap<>();
 

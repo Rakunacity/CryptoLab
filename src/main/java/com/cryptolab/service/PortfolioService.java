@@ -6,12 +6,14 @@ import java.util.Map;
 import com.cryptolab.model.Portfolio;
 import com.cryptolab.model.Market;
 
+import static com.cryptolab.Utils.bd;
+
 public class PortfolioService {
 
     public static BigDecimal getTotalPortfolioValue(Portfolio portfolio, Market market) {
 
         Map<String, BigDecimal> cryptosMap = portfolio.getAllCryptos();
-        BigDecimal total = new BigDecimal("0");
+        BigDecimal total = bd("0");
 
         for (Map.Entry<String, BigDecimal> entry : cryptosMap.entrySet()) {
             String key = entry.getKey();
