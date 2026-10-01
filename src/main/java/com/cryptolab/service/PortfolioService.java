@@ -16,7 +16,7 @@ public class PortfolioService {
         for (Map.Entry<String, BigDecimal> entry : cryptosMap.entrySet()) {
             String key = entry.getKey();
             BigDecimal cryptoValue = market.getAsset(key).getPrice().multiply(portfolio.getCryptoAmount(key));
-            total.add(cryptoValue);
+            total = total.add(cryptoValue);
         }
 
         return total.add(portfolio.getCashBalance());

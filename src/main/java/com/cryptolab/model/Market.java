@@ -23,8 +23,8 @@ public class Market {
         CryptoAsset asset = this.getAsset(symbolUpperCase);
 
         if(asset == null) return;
-        
-        this.market.put(symbolUpperCase, new CryptoAsset(symbolUpperCase, asset.getName(), price));
+
+        asset.changePrice(price);
     }
 
     public void printAll() {

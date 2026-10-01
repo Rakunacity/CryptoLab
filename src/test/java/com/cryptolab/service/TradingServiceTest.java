@@ -1,6 +1,5 @@
 package com.cryptolab.service;
 
-import com.cryptolab.model.CryptoAsset;
 import com.cryptolab.model.Market;
 import com.cryptolab.model.Portfolio;
 import org.junit.jupiter.api.Test;
@@ -10,6 +9,8 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import static com.cryptolab.TestUtils.marketWithAsset;
 
 class TradingServiceTest {
 
@@ -69,7 +70,6 @@ class TradingServiceTest {
         assertEquals(0, new BigDecimal("10000").compareTo(portfolio.getCashBalance()));
         assertEquals(0, BigDecimal.ZERO.compareTo(portfolio.getCryptoAmount("BTC")));
     }
-
 
     @Test
     void sellsKnownCryptoAssetAndUpdatesPortfolio() {
@@ -135,9 +135,4 @@ class TradingServiceTest {
         assertEquals(0, BigDecimal.ONE.compareTo(portfolio.getCryptoAmount("BTC")));
     }
 
-    private Market marketWithAsset(String symbol, String price) {
-        Market market = new Market();
-        market.addAsset(new CryptoAsset(symbol, symbol + " asset", new BigDecimal(price)));
-        return market;
-    }
 }
