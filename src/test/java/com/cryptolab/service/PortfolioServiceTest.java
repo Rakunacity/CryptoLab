@@ -1,4 +1,4 @@
-package com.cryptolab.model;
+package com.cryptolab.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -7,6 +7,10 @@ import org.junit.jupiter.api.Test;
 import com.cryptolab.service.TradingService;
 import static com.cryptolab.TestUtils.marketWithAsset;
 import static com.cryptolab.Utils.bd;
+
+import com.cryptolab.model.CryptoAsset;
+import com.cryptolab.model.Market;
+import com.cryptolab.model.Portfolio;
 import com.cryptolab.service.PortfolioService;
 
 public class PortfolioServiceTest {
@@ -14,7 +18,7 @@ public class PortfolioServiceTest {
     @Test
     void getsTotalPortfolioValue() {
 
-        Market market = marketWithAsset("BTC", "4000"); // ?? why not includes name?
+        Market market = marketWithAsset("BTC", "4000");
         CryptoAsset asset = new CryptoAsset("ETH", "Etherium", bd("1000"));
         market.addAsset(asset);
 
