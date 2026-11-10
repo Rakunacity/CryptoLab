@@ -1,0 +1,18 @@
+{
+  "name": "cryptolab-workspace",
+  "private": true,
+  "scripts": {
+    "start": "bash scripts/start.sh",
+    "dev": "npm run db:ensure && concurrently -k -n backend,frontend -c blue,magenta \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "check:db": "node scripts/check-postgres.cjs",
+    "db:ensure": "node scripts/ensure-postgres.cjs",
+    "dev:backend": "export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home && export PATH=/Library/Java/JavaVirtualMachines/temurin-21.jdk/Contents/Home/bin:$PATH && npm run check:db && mvn spring-boot:run",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "db:up": "docker compose up -d postgres",
+    "db:down": "docker compose down",
+    "test": "mvn test && npm --prefix frontend test"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

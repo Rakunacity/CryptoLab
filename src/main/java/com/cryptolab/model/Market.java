@@ -1,6 +1,7 @@
 package com.cryptolab.model;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,6 +14,10 @@ public class Market {
 
     public CryptoAsset getAsset(String symbol) {
         return this.market.get(symbol.toUpperCase());
+    }
+
+    public Collection<CryptoAsset> getAllAssets() {
+        return this.market.values();
     }
 
     public void changeAssetPrice(String symbol, BigDecimal price) {

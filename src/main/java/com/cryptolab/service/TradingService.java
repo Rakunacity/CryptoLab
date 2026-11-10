@@ -30,7 +30,7 @@ public class TradingService {
         portfolio.addCrypto(symbol, amount);
         portfolio.deductCash(buyCost);
 
-        TradeHistory.addToHistory(new Trade(
+        TradeHistory.addTrade(new Trade(
                 symbol,
                 TradeType.BUY,
                 amount,
@@ -58,7 +58,7 @@ public class TradingService {
         portfolio.addCash(sellResult);
         portfolio.deductCrypto(symbol, amount);
 
-        TradeHistory.addToHistory(new Trade(
+        TradeHistory.addTrade(new Trade(
                 symbol,
                 TradeType.SELL,
                 amount,
