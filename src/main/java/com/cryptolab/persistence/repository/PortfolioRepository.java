@@ -10,5 +10,4 @@ import com.cryptolab.persistence.entity.PortfolioEntity;
 public interface PortfolioRepository extends JpaRepository<PortfolioEntity, Long> {
 
     Optional<PortfolioEntity> findByOwnerName(String ownerName);
-    PortfolioEntity save(BigDecimal cash);
 }
