@@ -19,12 +19,12 @@ public class PortfolioPersistenceService {
     }
 
     public PortfolioEntity getOrCreatePortfolio(String ownerName) {
-        Optional<PortfolioEntity> repository = this.portfolioRepository.findByOwnerName(ownerName);
-        if (repository.isEmpty()) {
+        Optional<PortfolioEntity> portfolioOptional = this.portfolioRepository.findByOwnerName(ownerName);
+        if (portfolioOptional.isEmpty()) {
             BigDecimal startingCash = bd("10000");
             return  portfolioRepository.save(new PortfolioEntity(ownerName, startingCash));
         } else {
-            return repository.get();
+            return portfolioOptional.get();
         }
 
     
